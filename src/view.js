@@ -1,6 +1,11 @@
 function gameHook() {
-  var canvas = document.querySelector('canvas');
-  var context = canvas.getContext('2d');
+  window.canvas = document.querySelector('canvas');
+  window.context = canvas.getContext('2d');
+
+  drawStatics();
+}
+
+function drawStatics() {
   context.fillStyle = 'rgb(100, 100, 100)';
   context.fillRect(0, 75, 480, 300);
   context.fillStyle = 'rgb(194, 178, 128)';

@@ -17,8 +17,6 @@
       var canvas = document.querySelector('canvas');
       var context = canvas.getContext('2d');
 
-
-
       let image = new Image();
       image.src = '../images/spriteSheet.png';
       image.onload = function() {
@@ -47,6 +45,29 @@
               console.log('right');
               break;
             case "a":
+              console.log('left');
+              break;
+          }
+        }, false);
+
+        document.addEventListener('keydown', function(event){
+          switch(event.keyCode) {
+            case 87:
+              console.log('forward');
+              break;
+            case 68:
+              console.log('right');
+              break;
+            case 65:
+              console.log('left');
+              break;
+            case 38:
+              console.log('forward');
+              break;
+            case 39:
+              console.log('right');
+              break;
+            case 37:
               console.log('left');
               break;
           }
@@ -81,29 +102,6 @@
         image.onload = function() {
           context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
         }
-
-        document.addEventListener('keydown', function(event){
-          switch(event.keyCode) {
-            case 87:
-              console.log('forward');
-              break;
-            case 68:
-              console.log('right');
-              break;
-            case 65:
-              console.log('left');
-              break;
-            case 38:
-              console.log('forward');
-              break;
-            case 39:
-              console.log('right');
-              break;
-            case 37:
-              console.log('left');
-              break;
-          }
-        }, false);
       }
     </script>
   </body>

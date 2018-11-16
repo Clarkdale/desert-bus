@@ -1,7 +1,16 @@
+body {
+  background: #444444;
+}
+
 .canvas {
   display: table;
   margin: 0 auto;
   width: 480px;
   height: 360px;
   background: lightBlue;
+}
+
+.logo {
+  display: block;
+  margin: 10 auto;
 }

@@ -13,40 +13,29 @@
 
       let distance = 0;
       let accel = 0;
+
+      var canvas = document.querySelector('canvas');
+      var context = canvas.getContext('2d');
+
+      let image = new Image();
+      image.src = '../images/spriteSheet.png';
+
       function render() {
-        var canvas = document.querySelector('canvas');
-        var context = canvas.getContext('2d');
-
-        context.fillStyle = 'rgb(0, 0, 0)';
-        context.fillRect(0, 0, 300, 10);
-
-        context.fillStyle = 'rgb(100, 100, 100)';
-        context.fillRect(0, 75, 480, 300);
-        context.fillStyle = 'rgb(194, 178, 128)';
-
-        context.beginPath();
-        context.moveTo(0, 75);
-        context.lineTo(149, 75);
-        context.lineTo(15, 110);
-        context.lineTo(0, 110);
-        context.fill();
-
-        context.beginPath();
-        context.moveTo(151, 75);
-        context.lineTo(300, 75);
-        context.lineTo(300, 110);
-        context.lineTo(285, 110);
-        context.fill();
-
-        var image = new Image();
-        image.src = '../images/spriteSheet.png';
-        image.onload = function() {
-          context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
-        }
-
+        draw();
         document.addEventListener('keypress', function(event){
           switch(event.key) {
             case "w":
+              if (spriteY == 10) {
+                down = false;
+              } else if (spriteY == 0) {
+                down = true;
+              }
+              if (down) {
+                spriteY++;
+              } else {
+                spriteY--;
+              }
+              draw();
               console.log("forward");
               break;
             case "d":
@@ -57,6 +46,34 @@
               break;
           }
         }, false);
+      }
+
+      function draw() {
+        context.clearRect(0, 0, 1000, 1000);
+
+        context.fillStyle = 'rgb(36, 36, 36)';
+        context.fillRect(0, 0, 300, 10);
+
+        context.fillStyle = 'rgb(100, 100, 100)';
+        context.fillRect(0, 75, 480, 300);
+        context.fillStyle = 'rgb(194, 178, 128)';
+
+        context.beginPath();
+        context.moveTo(0, 75);
+        context.lineTo(149, 75);
+        context.lineTo(0, 120);
+        //context.lineTo(0, 110);
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(151, 75);
+        context.lineTo(300, 75);
+        context.lineTo(300, 120);
+        context.fill();
+
+        image.onload = function() {
+          context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
+        }
       }
     </script>
   </body>

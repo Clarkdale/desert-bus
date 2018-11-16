@@ -8,9 +8,15 @@
     <img src="../images/logo.png" alt="logo " class="logo">
     <canvas class="canvas" id="graphcs"></canvas>
     <script>
+      var spriteY = 0;
+      var down = true;
       function render() {
         var canvas = document.querySelector('canvas');
         var context = canvas.getContext('2d');
+
+        context.fillStyle = 'rgb(0, 0, 0)';
+        context.fillRect(0, 0, 300, 10);
+
         context.fillStyle = 'rgb(100, 100, 100)';
         context.fillRect(0, 75, 480, 300);
         context.fillStyle = 'rgb(194, 178, 128)';
@@ -32,8 +38,22 @@
         var image = new Image();
         image.src = '../images/spriteSheet.png';
         image.onload = function() {
-          context.drawImage(image, 8, 7, 320, 225, 0, 0, 300, 150);
+          context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
         }
+
+        document.addEventListener('keypress', function(event){
+          switch(event.key) {
+            case "w":
+              console.log("forward");
+              break;
+            case "d":
+              console.log('right');
+              break;
+            case "a":
+              console.log('left');
+              break;
+          }
+        }, false);
       }
     </script>
   </body>

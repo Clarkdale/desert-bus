@@ -97,11 +97,7 @@
         context.lineTo(300, 120);
         context.fill();
 
-        var image = new Image();
-        image.src = '../images/spriteSheet.png';
-        image.onload = function() {
-          context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
-        }
+        context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
       }
     </script>
   </body>

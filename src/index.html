@@ -88,7 +88,6 @@
         context.moveTo(0, 75);
         context.lineTo(149, 75);
         context.lineTo(0, 120);
-        //context.lineTo(0, 110);
         context.fill();
 
         context.beginPath();
@@ -97,7 +96,22 @@
         context.lineTo(300, 120);
         context.fill();
 
-        context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
+        roadLines(75);
+      }
+
+      function roadLines(x) {
+        context.strokeStyle = 'rgb(204, 204, 0)';
+        let i = x;
+        let j = 5;
+        while (i < x + 200) {
+          context.lineWidth = j / 5;
+          context.beginPath();
+          context.moveTo(150, i);
+          context.lineTo(150, i + j);
+          context.stroke();
+          i += j * 2;
+          j *= 2;
+        }
       }
     </script>
   </body>

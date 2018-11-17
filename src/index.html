@@ -11,8 +11,9 @@
       var spriteY = 0;
       var down = true;
 
+      let elapsedTime = 0;
       let distance = 0;
-      let accel = 0;
+      let speed = 0;
 
       var canvas = document.querySelector('canvas');
       var context = canvas.getContext('2d');
@@ -22,6 +23,14 @@
       image.onload = function() {
         context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
       }
+
+      function mainLoop() {
+        console.log('tick');
+        requestAnimationFrame(mainLoop);
+      }
+
+      // Start things off
+      requestAnimationFrame(mainLoop);
 
       function render() {
         draw();

@@ -25,9 +25,9 @@
 
       function render() {
         draw();
-        document.addEventListener('keypress', function(event){
-          switch(event.key) {
-            case "w":
+        document.addEventListener('keydown', function(event) {
+          switch(event.code) {
+            case "KeyW":
               if (spriteY == 10) {
                 down = false;
               } else if (spriteY == 0) {
@@ -41,33 +41,30 @@
               draw();
               console.log("forward");
               break;
-            case "d":
+            case "KeyD":
               console.log('right');
               break;
-            case "a":
+            case "KeyA":
               console.log('left');
               break;
-          }
-        }, false);
-
-        document.addEventListener('keydown', function(event){
-          switch(event.keyCode) {
-            case 87:
-              console.log('forward');
+            case "ArrowUp":
+              if (spriteY == 10) {
+                down = false;
+              } else if (spriteY == 0) {
+                down = true;
+              }
+              if (down) {
+                spriteY++;
+              } else {
+                spriteY--;
+              }
+              draw();
+              console.log("forward");
               break;
-            case 68:
+            case "ArrowRight":
               console.log('right');
               break;
-            case 65:
-              console.log('left');
-              break;
-            case 38:
-              console.log('forward');
-              break;
-            case 39:
-              console.log('right');
-              break;
-            case 37:
+            case "ArrowLeft":
               console.log('left');
               break;
           }

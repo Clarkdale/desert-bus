@@ -11,6 +11,8 @@
       var spriteY = 0;
       var down = true;
 
+      var lineStart = 75;
+
       let elapsedTime = 0;
       let distance = 0;
       let speed = 0;
@@ -102,13 +104,19 @@
         context.lineTo(300, 120);
         context.fill();
 
-        roadLines(75);
+        roadLines(lineStart);
+        if (lineStart == 75) {
+          lineStart = 85;
+        } else {
+          lineStart = 75;
+        }
+        context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
       }
 
       function roadLines(x) {
         context.strokeStyle = 'rgb(204, 204, 0)';
         let i = x;
-        let j = 5;
+        let j = x / 15;
         while (i < x + 200) {
           context.lineWidth = j / 5;
           context.beginPath();

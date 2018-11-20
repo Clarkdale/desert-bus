@@ -1,5 +1,5 @@
 var spriteY = 0;
-var currX = 150;;
+var currX = 150;
 var down = true;
 
 var end = 28800000;
@@ -23,9 +23,6 @@ image.onload = function() {
   context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
 }
 
-// Start things off
-
-
 function render() {
   draw();
   document.addEventListener('keydown', function(event) {
@@ -34,11 +31,13 @@ function render() {
         if (!moveStarted)
           moving = setInterval(forward, 50);
           moveStarted = true;
-        break;
+          break;
       case "KeyD":
+        currX--;
         console.log('right');
         break;
       case "KeyA":
+        currX++;
         console.log('left');
         break;
       case "ArrowUp":
@@ -74,11 +73,15 @@ function render() {
 function forward() {
   if (speed < 1) {
     speed += .01;
-    console.log("Less");
   }
-  if (spriteY == 10) {
+
+  if (speed > 1) {
+    speed = 1;
+  }
+
+  if (spriteY >= 10) {
     down = false;
-  } else if (spriteY == 0) {
+  } else if (spriteY <= 0) {
     down = true;
   }
   if (down) {
@@ -86,16 +89,22 @@ function forward() {
   } else {
     spriteY -= speed;
   }
+
+  if (spriteY > 10) {
+    spriteY = 10;
+  } else if (spriteY < 0) {
+    spriteY = 0;
+  }
+
   elapsedTime += 50;
   draw();
 }
 
 function draw() {
-  console.log(speed);
   context.clearRect(0, 0, 1000, 1000);
 
   context.fillStyle = 'rgb(36, 36, 36)';
-  context.fillRect(0, 0, 300, 10);
+  context.fillRect(0, 0, 300, 11);
 
   context.fillStyle = 'rgb(100, 100, 100)';
   context.fillRect(0, 75, 480, 300);
@@ -115,7 +124,8 @@ function draw() {
 
   roadLines(lineStart);
   if (lineStart == 75) {
-    lineStart = 85;
+    //lineStart = 85;
+    lineStart = 75;
   } else {
     lineStart = 75;
   }
@@ -124,15 +134,25 @@ function draw() {
 
 function roadLines(x) {
   context.strokeStyle = 'rgb(204, 204, 0)';
+
+  context.beginPath();
+  context.moveTo(currX, x);
+
+  context.lineTo(150 + (150 - currX) * 2, 300);
+  context.stroke();
+  /*
   let i = x;
   let j = x / 15;
+  let start = currX;
   while (i < x + 200) {
     context.lineWidth = j / 5;
     context.beginPath();
-    context.moveTo(currX, i);
-    context.lineTo(currX, i + j);
+    context.moveTo(start, i);
+    context.lineTo(start - lineX, i + j);
     context.stroke();
+    start -= 2 * lineX;
     i += j * 2;
     j += 2;
-  }
+
+  }*/
 }

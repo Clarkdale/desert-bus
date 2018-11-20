@@ -1,5 +1,8 @@
 var spriteY = 0;
+var currX = 150;;
 var down = true;
+
+var end = 28800000;
 
 var lineStart = 75;
 
@@ -39,8 +42,6 @@ function render() {
       case "KeyA":
         console.log('left');
         break;
-
-      // ================ HAS NOT BEEN FIXED ================
       case "ArrowUp":
         if (!moveStarted)
           moving = setInterval(forward, 50);
@@ -82,6 +83,8 @@ function forward() {
   } else {
     spriteY--;
   }
+  elapsedTime += 50;
+  console.log(elapsedTime);
   draw();
 }
 
@@ -97,12 +100,12 @@ function draw() {
 
   context.beginPath();
   context.moveTo(0, 75);
-  context.lineTo(149, 75);
+  context.lineTo(currX - 1, 75);
   context.lineTo(0, 120);
   context.fill();
 
   context.beginPath();
-  context.moveTo(151, 75);
+  context.moveTo(currX + 1, 75);
   context.lineTo(300, 75);
   context.lineTo(300, 120);
   context.fill();
@@ -123,8 +126,8 @@ function roadLines(x) {
   while (i < x + 200) {
     context.lineWidth = j / 5;
     context.beginPath();
-    context.moveTo(150, i);
-    context.lineTo(150, i + j);
+    context.moveTo(currX, i);
+    context.lineTo(currX, i + j);
     context.stroke();
     i += j * 2;
     j += 2;

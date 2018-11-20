@@ -10,7 +10,9 @@ let speed = 0;
 var canvas = document.querySelector('canvas');
 var context = canvas.getContext('2d');
 
-let moving = false;
+let moveStarted = false;
+
+let moving = null;
 
 let image = new Image();
 image.src = '../images/spriteSheet.png';
@@ -18,38 +20,31 @@ image.onload = function() {
   context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
 }
 
-function mainLoop() {
-
-  if (moving) {
-    console.log('tick');
-    requestAnimationFrame(mainLoop);
-  }
-
-}
-
 // Start things off
-requestAnimationFrame(mainLoop);
+
 
 function render() {
   draw();
   document.addEventListener('keydown', function(event) {
     switch(event.code) {
-      case "KeyW" && "KeyD":
-        forward();
+      case "KeyW":
+        if (!moveStarted)
+          moving = setInterval(forward, 50);
+          moveStarted = true;
+        console.log("forward");
+        break;
+      case "KeyD":
         console.log('right');
         break;
-      case "KeyW" && "KeyA":
-        forward();
+      case "KeyA":
         console.log('left');
         break;
 
-        case "KeyW":
-          forward();
-          console.log("forward");
-          break;
-
+      // ================ HAS NOT BEEN FIXED ================
       case "ArrowUp":
-        forward();
+        if (!moveStarted)
+          moving = setInterval(forward, 50);
+          moveStarted = true;
         console.log("forward");
         break;
       case "ArrowRight":
@@ -65,10 +60,13 @@ function render() {
   document.addEventListener('keyup', function(event) {
     switch(event.code) {
       case "KeyW":
-        console.log("done");
-      case "ArrowUp" :
-        moving = false;
-        break;
+        clearInterval(moving);
+        moveStarted = false;
+        console.log(moving);
+      case "ArrowUp":
+        clearInterval(moving);
+        moveStarted = false;
+        console.log(moving);
     }
   }, false);
 }
@@ -84,7 +82,6 @@ function forward() {
   } else {
     spriteY--;
   }
-  moving = true;
   draw();
 }
 

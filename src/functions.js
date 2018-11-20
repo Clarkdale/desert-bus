@@ -6,6 +6,8 @@ var end = 28800000;
 
 var lineStart = 75;
 
+var damage = 0;
+
 let elapsedTime = 0;
 let distance = 0;
 let speed = 0;
@@ -28,16 +30,16 @@ function render() {
   document.addEventListener('keydown', function(event) {
     switch(event.code) {
       case "KeyW":
-        if (!moveStarted)
+        if (!moveStarted && damage < 40)
           moving = setInterval(forward, 50);
           moveStarted = true;
           break;
       case "KeyD":
-        currX--;
+        currX -= 4;
         console.log('right');
         break;
       case "KeyA":
-        currX++;
+        currX += 4;
         console.log('left');
         break;
       case "ArrowUp":
@@ -97,6 +99,20 @@ function forward() {
   }
 
   elapsedTime += 50;
+  if (currX > 75) {
+    currX -= 2;
+  }
+
+  console.log(currX);
+
+  if (currX <= 75) {
+    damage += 1;
+  }
+
+  if (damage >= 40) {
+    clearInterval(moving);
+  }
+
   draw();
 }
 
@@ -137,8 +153,8 @@ function roadLines(x) {
 
   context.beginPath();
   context.moveTo(currX, x);
-
-  context.lineTo(150 + (150 - currX) * 2, 300);
+  let xVal = 150 + ((150 - currX) * 2);
+  context.lineTo(xVal, 300);
   context.stroke();
   /*
   let i = x;

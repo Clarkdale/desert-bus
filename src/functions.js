@@ -34,7 +34,6 @@ function render() {
         if (!moveStarted)
           moving = setInterval(forward, 50);
           moveStarted = true;
-        console.log("forward");
         break;
       case "KeyD":
         console.log('right');
@@ -63,32 +62,36 @@ function render() {
       case "KeyW":
         clearInterval(moving);
         moveStarted = false;
-        console.log(moving);
+        break;
       case "ArrowUp":
         clearInterval(moving);
         moveStarted = false;
-        console.log(moving);
+        break;
     }
   }, false);
 }
 
 function forward() {
+  if (speed < 1) {
+    speed += .01;
+    console.log("Less");
+  }
   if (spriteY == 10) {
     down = false;
   } else if (spriteY == 0) {
     down = true;
   }
   if (down) {
-    spriteY++;
+    spriteY += speed;
   } else {
-    spriteY--;
+    spriteY -= speed;
   }
   elapsedTime += 50;
-  console.log(elapsedTime);
   draw();
 }
 
 function draw() {
+  console.log(speed);
   context.clearRect(0, 0, 1000, 1000);
 
   context.fillStyle = 'rgb(36, 36, 36)';

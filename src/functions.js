@@ -4,7 +4,7 @@ var down = true;
 
 var end = 28800000;
 
-var lineStart = 60;
+var lineStart = 52;
 
 var damage = 0;
 
@@ -124,9 +124,6 @@ function forward() {
 function draw() {
   context.clearRect(0, 0, 1000, 1000);
 
-  context.fillStyle = 'rgb(36, 36, 36)';
-  context.fillRect(0, 0, 300, 11);
-
   context.fillStyle = 'rgb(194, 178, 128)';
   context.fillRect(0, 60, 480, 300);
 
@@ -140,33 +137,51 @@ function draw() {
   context.lineTo(currX - 300, 150);
   context.fill();
 
+  context.fillStyle = 'rgb(144, 128, 78)';
+  context.beginPath();
+  context.moveTo(currX - 5, 60);
+  context.lineTo(currX - 300, 150);
+  context.lineTo(currX - 400, 150);
+  context.lineTo(currX - 10, 60);
+  context.fill();
+
+  context.beginPath();
+  context.moveTo(currX + 5, 60);
+  context.lineTo(currX + 300, 150);
+  context.lineTo(currX + 400, 150);
+  context.lineTo(currX + 10, 60);
+  context.fill();
+
 
   roadLines(lineStart);
-  if (lineStart == 60) {
-    //lineStart = 85;
-    lineStart = 60;
+  if (lineStart >= 74) {
+    lineStart = 52;
   } else {
-    lineStart = 60;
+    lineStart += 2 * speed;
   }
-  //context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
+
+  context.fillStyle = 'rgb(135, 206, 250)';
+  context.fillRect(0, 0, 300, 60)
+
+  context.fillStyle = 'rgb(36, 36, 36)';
+  context.fillRect(0, 0, 300, 11);
+
+  context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
 }
 
-function roadLines(x) {
+function roadLines(yVal) {
   context.strokeStyle = 'rgb(204, 204, 0)';
   let i = currX;
-  let yVal = x;
-
-  while (i < 200) {
-    context.beginPath();
-    context.moveTo(currX, yVal);
-    context.lineTo(currX + (200 - currX) * -1, 300);
-    context.stroke();
-    i += 200;
-  }
+  context.lineWidth = 4;
+  context.beginPath();
+  context.setLineDash([10, 12]);
+  context.moveTo(currX, yVal);
+  context.lineTo(currX + (200 - currX) * -1, 300);
+  context.stroke();
 }
 
 function slope(val) {
-  val *= 240;
-  val /= (currX - 200);
+  val *= -(200 - currX);
+  val /= 40
   return val;
 }

@@ -111,6 +111,7 @@ function forward() {
 
   if (damage >= 40) {
     clearInterval(moving);
+    //console.log(elapsedTime / end);
   }
 
   draw();
@@ -145,7 +146,7 @@ function draw() {
   } else {
     lineStart = 75;
   }
-  context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
+  //context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
 }
 
 function roadLines(x) {

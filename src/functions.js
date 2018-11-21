@@ -1,10 +1,10 @@
 var spriteY = 0;
-var currX = 150;
+var currX = 110;
 var down = true;
 
 var end = 28800000;
 
-var lineStart = 75;
+var lineStart = 60;
 
 var damage = 0;
 
@@ -30,17 +30,23 @@ function render() {
   document.addEventListener('keydown', function(event) {
     switch(event.code) {
       case "KeyW":
-        if (!moveStarted && damage < 40)
+        if (!moveStarted && damage < 40) {
           moving = setInterval(forward, 50);
           moveStarted = true;
-          break;
+        }
+        break;
       case "KeyD":
-        currX -= 4;
-        console.log('right');
+        if (currX > 105) {
+          currX -= 4;
+          console.log('right');
+        }
         break;
       case "KeyA":
-        currX += 4;
-        console.log('left');
+        if (currX < 225) {
+          currX += 4;
+          console.log(currX);
+          console.log('left');
+        }
         break;
       case "ArrowUp":
         if (!moveStarted)
@@ -99,13 +105,11 @@ function forward() {
   }
 
   elapsedTime += 50;
-  if (currX > 75) {
+  if (currX > 105) {
     currX -= 2;
   }
 
-  console.log(currX);
-
-  if (currX <= 75) {
+  if (currX <= 105 || currX >= 225) {
     damage += 1;
   }
 
@@ -123,53 +127,46 @@ function draw() {
   context.fillStyle = 'rgb(36, 36, 36)';
   context.fillRect(0, 0, 300, 11);
 
-  context.fillStyle = 'rgb(100, 100, 100)';
-  context.fillRect(0, 75, 480, 300);
   context.fillStyle = 'rgb(194, 178, 128)';
+  context.fillRect(0, 60, 480, 300);
+
+
+  context.fillStyle = 'rgb(100, 100, 100)';
 
   context.beginPath();
-  context.moveTo(0, 75);
-  context.lineTo(currX - 1, 75);
-  context.lineTo(0, 120);
+  context.moveTo(currX - 5, 60);
+  context.lineTo(currX + 5, 60);
+  context.lineTo(currX + 300, 150);
+  context.lineTo(currX - 300, 150);
   context.fill();
 
-  context.beginPath();
-  context.moveTo(currX + 1, 75);
-  context.lineTo(300, 75);
-  context.lineTo(300, 120);
-  context.fill();
 
   roadLines(lineStart);
-  if (lineStart == 75) {
+  if (lineStart == 60) {
     //lineStart = 85;
-    lineStart = 75;
+    lineStart = 60;
   } else {
-    lineStart = 75;
+    lineStart = 60;
   }
   //context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
 }
 
 function roadLines(x) {
   context.strokeStyle = 'rgb(204, 204, 0)';
+  let i = currX;
+  let yVal = x;
 
-  context.beginPath();
-  context.moveTo(currX, x);
-  let xVal = 150 + ((150 - currX) * 2);
-  context.lineTo(xVal, 300);
-  context.stroke();
-  /*
-  let i = x;
-  let j = x / 15;
-  let start = currX;
-  while (i < x + 200) {
-    context.lineWidth = j / 5;
+  while (i < 200) {
     context.beginPath();
-    context.moveTo(start, i);
-    context.lineTo(start - lineX, i + j);
+    context.moveTo(currX, yVal);
+    context.lineTo(currX + (200 - currX) * -1, 300);
     context.stroke();
-    start -= 2 * lineX;
-    i += j * 2;
-    j += 2;
+    i += 200;
+  }
+}
 
-  }*/
+function slope(val) {
+  val *= 240;
+  val /= (currX - 200);
+  return val;
 }

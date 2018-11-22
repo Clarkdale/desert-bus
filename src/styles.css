@@ -2,6 +2,36 @@ body {
   background: #444444;
 }
 
+input {
+  display: table;
+  margin: 0 auto;
+}
+
+iframe {
+  border: 0;
+  height: 90%;
+  width: 100%;
+}
+
+button {
+  display: table;
+  margin: 0 auto;
+}
+
+.highScores {
+  width: 50%;
+  height: 70%;
+  display: table;
+  margin: 0 auto;
+  border-radius: 25px;
+  background-color: #e3b13a;
+  border: 1px solid black;
+}
+
+.createAccount {
+  color: black;
+}
+
 .canvas {
   display: table;
   margin: 0 auto;

@@ -1,0 +1,24 @@
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Desert Bus</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    <img src="../images/logo.png" alt="logo " class="logo">
+    <form onsubmit="create(); return false;">
+      <input type="text" placeholder="Username" required>
+      <input type="text" placeholder="Email" required>
+      <input type="password" placeholder="Password" id="first" required>
+      <input type="password" placeholder="Confirm Password" id="second" required>
+      <input type="submit" value="Create Account">
+    </form>
+    <script>
+      function create() {
+        var pass1 = document.getElementById("first");
+        var pass2 = document.getElementById("second");
+        console.log(pass1.value === pass2.value);
+      }
+    </script>
+  </body>
+</html>

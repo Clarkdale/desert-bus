@@ -4,12 +4,22 @@
     <title>Desert Bus</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
-  <body  onload="render()">
+  <body>
     <img src="../images/logo.png" alt="logo " class="logo">
-    <div id="mainPage">
-      <canvas class="canvas" id="graphics"></canvas>
-    </div>
-    <div id="endText"></div>
-    <script src="functions.js"></script>
+    <form onsubmit="login(); return false;">
+      <input type="text" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <input type="submit" value="Login">
+    </form>
+    <button onclick="create()">Create an Account</button>
+    <script>
+      function login() {
+        window.location.href = "canvas.html";
+      }
+
+      function create() {
+        window.location.href = "create.html";
+      }
+    </script>
   </body>
 </html>

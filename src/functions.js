@@ -4,6 +4,8 @@ var down = true;
 
 var end = 28800000;
 
+var left = false;
+
 var lineStart = 52;
 
 var damage = 0;
@@ -42,23 +44,19 @@ function render() {
         }
         break;
       case "KeyA":
-        if (currX < 225) {
-          currX += 4;
-          console.log(currX);
-          console.log('left');
-        }
+        left = true;
         break;
       case "ArrowUp":
-        if (!moveStarted)
+        if (!moveStarted && damage < 40) {
           moving = setInterval(forward, 50);
           moveStarted = true;
-        console.log("forward");
+        }
         break;
       case "ArrowRight":
         console.log('right');
         break;
       case "ArrowLeft":
-        console.log('left');
+        left = true;
         break;
 
     }
@@ -73,6 +71,12 @@ function render() {
       case "ArrowUp":
         clearInterval(moving);
         moveStarted = false;
+        break;
+      case "KeyA":
+        left = false;
+        break;
+      case "ArrowLeft":
+        left = false;
         break;
     }
   }, false);
@@ -116,6 +120,14 @@ function forward() {
   if (damage >= 40) {
     clearInterval(moving);
     //console.log(elapsedTime / end);
+  }
+
+  if (left) {
+    if (currX < 225) {
+      currX += 4;
+      console.log(currX);
+      console.log('left');
+    }
   }
 
   draw();

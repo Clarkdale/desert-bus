@@ -44,3 +44,8 @@ button {
   display: block;
   margin: 10 auto;
 }
+
+.scores {
+  display: table;
+  margin: 0 auto;
+}

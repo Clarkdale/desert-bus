@@ -3,7 +3,7 @@ class DatabaseAdaptor {
   private $DB;
 
   public function __construct() {
-    $dataBase = 'mysql:dbname=imdb_small; charset=utf8; host=127.0.0.1';
+    $dataBase = 'mysql:dbname=desert_bus; charset=utf8; host=127.0.0.1';
     $user = 'root';
     $password = '';
     try {
@@ -22,7 +22,7 @@ class DatabaseAdaptor {
   }
 
   public function getUserName($in) {
-    $stmt = $this->DB->prepare("SELECT * FROM logins WHERE ID=" . $in);
+    $stmt = $this->DB->prepare("SELECT * FROM logins WHERE ID =" . $in);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }

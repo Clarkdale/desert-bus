@@ -4,15 +4,35 @@
     <title>Desert Bus</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
-  <body>
+  <body onload="retrieveInfo()">
     <img src="../images/logo.png" alt="logo " class="logo">
     <div class="highScores">
       <b style="display: table; margin: 0 auto;">High Scores</b>
+      <div id="scores" style="display: table; margin: 0 auto;"></div>
     </div>
     <button onclick="begin()">Continue</button>
     <script>
       function begin() {
         window.location.href = "canvas.html";
+      }
+
+      function retrieveInfo() {
+        var ajax = new XMLHttpRequest();
+        var elem = document.getElementById("scores");
+        var rec;
+        ajax.open("GET", "controller.php?n=5", true);
+        ajax.send();
+        ajax.onreadystatechange = function() {
+          if (ajax.readyState == 4 && ajax.status == 200) {
+            document.getElementById("scores").innerHTML = "";
+            rec = JSON.parse(ajax.responseText);
+            for (let i = 0; i < rec.length; i++) {
+              document.getElementById("scores").innerHTML += rec[i][0] + ": " + rec[i][1];
+              document.getElementById("scores").innerHTML += "<br>";
+            }
+            console.log(rec);
+          }
+        }
       }
     </script>
   </body>

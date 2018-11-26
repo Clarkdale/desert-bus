@@ -65,11 +65,9 @@ function render() {
   document.addEventListener('keyup', function(event) {
     switch(event.code) {
       case "KeyW":
-        clearInterval(moving);
         moveStarted = false;
         break;
       case "ArrowUp":
-        clearInterval(moving);
         moveStarted = false;
         break;
       case "KeyA":
@@ -83,12 +81,17 @@ function render() {
 }
 
 function forward() {
-  if (speed < 1) {
+  if (speed < 1 && moveStarted) {
     speed += .01;
+  } else {
+    speed -= .01;
   }
 
   if (speed > 1) {
     speed = 1;
+  } else if (speed <= 0) {
+    speed = 0;
+    clearInterval(moving);
   }
 
   if (spriteY >= 10) {
@@ -96,6 +99,7 @@ function forward() {
   } else if (spriteY <= 0) {
     down = true;
   }
+
   if (down) {
     spriteY += speed;
   } else {
@@ -118,7 +122,7 @@ function forward() {
   }
 
   if (damage >= 40) {
-    clearInterval(moving);
+    moveStarted = false;
     //console.log(elapsedTime / end);
   }
 
@@ -190,10 +194,4 @@ function roadLines(yVal) {
   context.moveTo(currX, yVal);
   context.lineTo(currX + (200 - currX) * -1, 300);
   context.stroke();
-}
-
-function slope(val) {
-  val *= -(200 - currX);
-  val /= 40
-  return val;
 }

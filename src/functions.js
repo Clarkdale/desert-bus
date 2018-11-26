@@ -38,13 +38,15 @@ function render() {
         }
         break;
       case "KeyD":
-        if (currX > 105) {
+        if (currX > 105 && damage < 40) {
           currX -= 4;
           console.log('right');
         }
         break;
       case "KeyA":
-        left = true;
+        if (damage < 40) {
+          left = true;
+        }
         break;
       case "ArrowUp":
         if (!moveStarted && damage < 40) {
@@ -56,9 +58,10 @@ function render() {
         console.log('right');
         break;
       case "ArrowLeft":
-        left = true;
+        if (damage < 40) {
+          left = true;
+        }
         break;
-
     }
   }, false);
 

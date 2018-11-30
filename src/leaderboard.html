@@ -20,11 +20,12 @@
         var ajax = new XMLHttpRequest();
         var elem = document.getElementById("scores");
         var rec;
-        ajax.open("GET", "controller.php?n=5", true);
+        ajax.open("GET", "controller.php?n=leaderboard&count=5", true);
         ajax.send();
         ajax.onreadystatechange = function() {
           if (ajax.readyState == 4 && ajax.status == 200) {
             document.getElementById("scores").innerHTML = "";
+            console.log(ajax.responseText);
             rec = JSON.parse(ajax.responseText);
             for (let i = 0; i < rec.length; i++) {
               document.getElementById("scores").innerHTML += rec[i][0] + ": " + rec[i][1];

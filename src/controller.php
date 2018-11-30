@@ -17,9 +17,19 @@
     echo json_encode($output);
   }
 
+  function login($user, $pass) {
+    $theDBA = new DatabaseAdaptor();
+    $check = $theDBA->loginValid($user, $pass);
+    echo "pass";
+  }
+
   $n = $_GET["n"];
   if ($n === "leaderboard") {
     $count = $_GET["count"];
     loadDatabase($count);
-  } 
+  } else if ($n === "login") {
+    $user = $_GET["user"];
+    $pass = $_GET["pass"];
+    login($user, $pass);
+  }
 ?>

@@ -30,7 +30,7 @@ class DatabaseAdaptor {
   public function loginValid($username, $password) {
     $stmt = $this->DB->prepare("SELECT * FROM logins WHERE ID =" . $username . " AND 
                                   Password =" . $password);
-    $stmet->execute();
+    $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 }

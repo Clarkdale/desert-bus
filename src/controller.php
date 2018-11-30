@@ -20,7 +20,7 @@
   function login($user, $pass) {
     $theDBA = new DatabaseAdaptor();
     $check = $theDBA->loginValid($user, $pass);
-    echo "pass";
+    echo json_encode($check);
   }
 
   $n = $_GET["n"];

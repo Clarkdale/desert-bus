@@ -24,10 +24,6 @@
     return $check;
   }
 
-  function checkSession() {
-    echo $_SESSION['user'];
-  }
-
   $n = $_GET["n"];
   session_start();
   if ($n === "leaderboard") {
@@ -39,10 +35,14 @@
     $result = login($user, $pass);
     if (!isset($_SESSION['user']) && count($result) == 1) {
       $_SESSION['user'] = $result[0]['Username'];
+      $_SESSION['id'] = $result[0]['ID'];
     } 
   } else if ($n === 'getUser') {
     if (isset($_SESSION['user'])) {
-      echo $_SESSION['user'];
+      $output = array();
+      array_push($output, $_SESSION['user']);
+      array_push($output, $_SESSION['id']);
+      echo json_encode($output);
     } else {
       echo "UNKNOWN";
     }

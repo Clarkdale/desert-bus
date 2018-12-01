@@ -34,7 +34,7 @@ function render() {
   ajax.send();
   ajax.onreadystatechange = function() {
     if (ajax.readyState == 4 && ajax.status == 200) {
-      username = ajax.responseText;
+      username = JSON.parse(ajax.responseText)[0];
       console.log(username);
       if (username === 'UNKNOWN') {
         context.fillStyle = '#ffffff';
@@ -158,6 +158,14 @@ function forward() {
     if (damage >= 40) {
       moveStarted = false;
       score += (elapsedTime / end);
+      var ajax = new XMLHttpRequest();
+      ajax.open("POST", "controller.php?n=check", true);
+      ajax.send();
+      ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+          console.log(ajax.responseText);
+        }
+      }
       // Place put for leaderboard here
     }
   

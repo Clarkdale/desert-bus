@@ -27,9 +27,6 @@ let username;
 
 let image = new Image();
 image.src = '../images/spriteSheet.png';
-image.onload = function() {
-  context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
-}
 
 function render() {
   var ajax = new XMLHttpRequest();
@@ -41,7 +38,14 @@ function render() {
       console.log(username);
       if (username === 'UNKNOWN') {
         context.fillStyle = '#ffffff';
-        context.fillText("Please login", 20, 20);
+        context.fillText("Please login", 122, 75);
+        var press = document.createElement("button");
+        var text = document.createTextNode("Login");
+        press.appendChild(text);
+        press.onclick = function() {
+          window.location.href = "index.html";
+        };
+        document.body.appendChild(press);
       } else {
         makeGame();
       }

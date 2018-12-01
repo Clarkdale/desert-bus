@@ -3,6 +3,8 @@ var currX = 110;
 var down = true;
 
 var end = 28800000;
+//var end = 100;
+var score = 0;
 
 var left = false;
 
@@ -124,30 +126,55 @@ function forward() {
     damage += 1;
   }
 
-  if (damage >= 40) {
-    moveStarted = false;
-    //console.log(elapsedTime / end);
-  }
-
-  if (left) {
-    if (currX < 225) {
-      currX += 4;
-      console.log(currX);
-      console.log('left');
+  if (elapsedTime >= end) {
+    clearInterval(moving);
+    score += 1;
+    endScreen();
+  } else {
+    if (damage >= 40) {
+      moveStarted = false;
+      score += (elapsedTime / end);
+      // Place put for leaderboard here
     }
+  
+    if (left) {
+      if (currX < 225) {
+        currX += 4;
+        console.log(currX);
+        console.log('left');
+      }
+    }
+  
+    draw();
   }
-
-  draw();
 }
 
 function draw() {
   context.clearRect(0, 0, 1000, 1000);
+  //let hour = (new Date()).getHours();
+  let hour = 20;
+  let sand = 'rgb(194, 178, 128)';
+  let road = 'rgb(100, 100, 100)';
+  let dirt = 'rgb(144, 128, 78)';
+  let sky = '#b5d6e0';
 
-  context.fillStyle = 'rgb(194, 178, 128)';
+  if (hour == 17 || hour == 7) {
+    sky = "#ffef7a";
+  } else if (hour == 18 || hour == 6) {
+    sky = "#f7c16a";
+  } else if (hour == 19 || hour == 5) {
+    sky = "#ff6b3e";
+  } else if (hour >= 20 || hour <= 4) {
+    sky = "#27214e";
+    road = "#000000";
+    sand = 'rgb(144, 128, 78)';
+    dirt = 'rgb(94, 78, 28)';
+  }
+
+  context.fillStyle = sand;
   context.fillRect(0, 60, 480, 300);
 
-
-  context.fillStyle = 'rgb(100, 100, 100)';
+  context.fillStyle = road;
 
   context.beginPath();
   context.moveTo(currX - 5, 60);
@@ -156,7 +183,7 @@ function draw() {
   context.lineTo(currX - 300, 150);
   context.fill();
 
-  context.fillStyle = 'rgb(144, 128, 78)';
+  context.fillStyle = dirt;
   context.beginPath();
   context.moveTo(currX - 5, 60);
   context.lineTo(currX - 300, 150);
@@ -179,7 +206,7 @@ function draw() {
     lineStart += 2 * speed;
   }
 
-  context.fillStyle = 'rgb(135, 206, 250)';
+  context.fillStyle = sky;
   context.fillRect(0, 0, 300, 60)
 
   context.fillStyle = 'rgb(36, 36, 36)';
@@ -197,4 +224,18 @@ function roadLines(yVal) {
   context.moveTo(currX, yVal);
   context.lineTo(currX + (200 - currX) * -1, 300);
   context.stroke();
+}
+
+function endScreen() {
+  context.clearRect(0, 0, 1000, 1000);
+  context.fillStyle = 'rgb(0, 0, 0)';
+  context.fillRect(0, 0, 1000, 1000);
+  context.fillStyle = '#ffffff';
+  context.fillText("Shift complete. Press Enter to continue", 65, 60);
+  document.addEventListener('keypress', function(event) {
+    if (event.code === "Enter") {
+      elapsedTime = 0;
+      render();
+    }
+  }, false);
 }

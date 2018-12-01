@@ -21,15 +21,30 @@
     $theDBA = new DatabaseAdaptor();
     $check = $theDBA->loginValid($user, $pass);
     echo json_encode($check);
+    return $check;
+  }
+
+  function checkSession() {
+    echo $_SESSION['user'];
   }
 
   $n = $_GET["n"];
+  session_start();
   if ($n === "leaderboard") {
     $count = $_GET["count"];
     loadDatabase($count);
   } else if ($n === "login") {
     $user = $_GET["user"];
     $pass = $_GET["pass"];
-    login($user, $pass);
+    $result = login($user, $pass);
+    if (!isset($_SESSION['user']) && count($result) == 1) {
+      $_SESSION['user'] = $result[0]['Username'];
+    } 
+  } else if ($n === 'getUser') {
+    if (isset($_SESSION['user'])) {
+      echo $_SESSION['user'];
+    } else {
+      echo "UNKNOWN";
+    }
   }
 ?>

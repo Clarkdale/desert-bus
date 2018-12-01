@@ -23,6 +23,8 @@ let moveStarted = false;
 
 let moving = null;
 
+let username;
+
 let image = new Image();
 image.src = '../images/spriteSheet.png';
 image.onload = function() {
@@ -30,6 +32,24 @@ image.onload = function() {
 }
 
 function render() {
+  var ajax = new XMLHttpRequest();
+  ajax.open("GET", "controller.php?n=getUser", true);
+  ajax.send();
+  ajax.onreadystatechange = function() {
+    if (ajax.readyState == 4 && ajax.status == 200) {
+      username = ajax.responseText;
+      console.log(username);
+      if (username === 'UNKNOWN') {
+        context.fillStyle = '#ffffff';
+        context.fillText("Please login", 20, 20);
+      } else {
+        makeGame();
+      }
+    }
+  }
+}
+
+function makeGame() {
   draw();
   document.addEventListener('keydown', function(event) {
     switch(event.code) {
@@ -140,8 +160,6 @@ function forward() {
     if (left) {
       if (currX < 225) {
         currX += 4;
-        console.log(currX);
-        console.log('left');
       }
     }
   
@@ -212,6 +230,10 @@ function draw() {
   context.fillRect(0, 0, 300, 11);
 
   context.drawImage(image, 8, 7, 320, 225, 0, spriteY, 300, 150);
+
+  context.fillStyle = '#000000';
+
+  context.fillText(username, 74, spriteY + 23);
 }
 
 function roadLines(yVal) {

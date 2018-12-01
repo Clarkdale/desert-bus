@@ -151,8 +151,7 @@ function forward() {
 
 function draw() {
   context.clearRect(0, 0, 1000, 1000);
-  //let hour = (new Date()).getHours();
-  let hour = 20;
+  let hour = (new Date()).getHours();
   let sand = 'rgb(194, 178, 128)';
   let road = 'rgb(100, 100, 100)';
   let dirt = 'rgb(144, 128, 78)';

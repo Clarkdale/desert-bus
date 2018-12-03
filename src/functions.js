@@ -2,11 +2,13 @@ var spriteY = 0;
 var currX = 110;
 var down = true;
 
-var end = 28800000;
-//var end = 100;
+//var end = 28800000;
+var end = 100;
 var score = 0;
 
 var left = false;
+
+let saved = false;
 
 var lineStart = 52;
 
@@ -154,13 +156,39 @@ function forward() {
     clearInterval(moving);
     score += 1;
     endScreen();
+    if (!saved) {
+      var ajax = new XMLHttpRequest();
+      
+      ajax.open("GET", "controller.php?n=getUserInfo&user=" + username, true);
+      ajax.send();
+      ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200 && !saved) {
+          var response = ajax.response;
+          var id = response[0]['ID'];
+          ajax.open("POST", "controller.php?n=newScore&id=" + id + "&score=" + score);
+          ajax.send();
+          saved = true;
+        }
+      }
+    }
   } else {
-    if (damage >= 40) {
+    if (damage >= 40 && !saved) {
       moveStarted = false;
       score += (elapsedTime / end);
+      score = Math.floor(score);
       var ajax = new XMLHttpRequest();
-      ajax.open("POST", "controller.php?n=newScore&id=0&score=" . score, true);
+      
+      ajax.open("GET", "controller.php?n=getUserInfo&user=" + username, true);
       ajax.send();
+      ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200 && !saved) {
+          var response = ajax.response;
+          var id = response[0]['ID'];
+          ajax.open("POST", "controller.php?n=newScore&id=" + id + "&score=" + score);
+          ajax.send();
+          saved = true;
+        }
+      }
     }
   
     if (left) {

@@ -23,12 +23,18 @@ class DatabaseAdaptor {
 
   public function addScore($user, $score) {
     $stmt = $this->DB->prepare("INSERT INTO scores VALUES
-    (" . $user . ", " . $score . ")");
+    ('" . $user . "', '" . $score . "')");
     $stmt->execute();
   }
 
   public function getUserName($in) {
     $stmt = $this->DB->prepare("SELECT * FROM logins WHERE ID =" . $in);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function getUserEntry($user) {
+    $stmt = $this->DB->prepare("SELECT * FROM logins WHERE Username ='" . $user . "'");
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }

@@ -35,6 +35,11 @@
     $theDBA->addScore($ident, $score);
   }
 
+  function userInfo($user) {
+    $theDBA = new DatabaseAdaptor();
+    return $theDBA->getUserEntry($user);
+  }
+
   $n = $_GET["n"];
   session_start();
   if ($n === "leaderboard") {
@@ -70,5 +75,10 @@
     $user = $_GET['id'];
     $score = $_GET['score'];
     insertScore($user, $score);
+    echo "succes";
+  } else if ($n === 'getUserInfo') {
+    $user = $_GET['user'];
+    $output = userInfo($user);
+    echo json_encode($output);
   }
 ?>

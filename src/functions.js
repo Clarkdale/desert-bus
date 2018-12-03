@@ -34,8 +34,7 @@ function render() {
   ajax.send();
   ajax.onreadystatechange = function() {
     if (ajax.readyState == 4 && ajax.status == 200) {
-      username = JSON.parse(ajax.responseText)[0];
-      console.log(username);
+      username = ajax.responseText
       if (username === 'UNKNOWN') {
         context.fillStyle = '#ffffff';
         context.fillText("Please login", 122, 75);
@@ -47,6 +46,7 @@ function render() {
         };
         document.body.appendChild(press);
       } else {
+        username = JSON.parse(username)[0];
         makeGame();
       }
     }

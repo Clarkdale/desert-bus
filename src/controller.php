@@ -24,6 +24,12 @@
     return $check;
   }
 
+  function insertUser($user, $email, $pass) {
+    $theDBA = new DatabaseAdaptor();
+    $val = $theDBA->createUser($user, $email, $pass);
+    return $val;
+  }
+
   $n = $_GET["n"];
   session_start();
   if ($n === "leaderboard") {
@@ -46,5 +52,14 @@
     } else {
       echo "UNKNOWN";
     }
+  } else if ($n === 'makeUser') {
+    $user = $_GET['user'];
+    $email = $_GET['email'];
+    $pass = $_GET['pass'];
+    $id = insertUser($user, $email, $pass);
+    if (!isset($_SESSION['user'])) {
+      $_SESSION['user'] = $user;
+      $_SESSION['id'] = $id;
+    } 
   }
 ?>

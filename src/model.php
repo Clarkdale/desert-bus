@@ -32,5 +32,23 @@ class DatabaseAdaptor {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function createUser($username, $email, $password) {
+    $hashed = password_hash($password, PASSWORD_DEFAULT);
+    $all = $this->DB->prepare("SELECT * FROM logins");
+    $all->execute();
+    $array = $all->fetchAll(PDO::FETCH_ASSOC);
+    $index = count($array) + 1;
+    $array = array();
+    array_push($array, $index);
+    array_push($array, $username);
+    array_push($array, $email);
+    array_push($array, $password);
+    $stmt = $this->DB->prepare("INSERT INTO logins
+      VALUES (" . $index . ", '" . $username . "', '" . $email . "', '" . $hashed . "')"
+    );
+    $stmt->execute();
+    return $index;
+  }
 }
 ?>

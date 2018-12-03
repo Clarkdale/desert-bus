@@ -21,6 +21,12 @@ class DatabaseAdaptor {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public function addScore($user, $score) {
+    $stmt = $this->DB->prepare("INSERT INTO scores VALUES
+    (" . $user . ", " . $score . ")");
+    $stmt->execute();
+  }
+
   public function getUserName($in) {
     $stmt = $this->DB->prepare("SELECT * FROM logins WHERE ID =" . $in);
     $stmt->execute();

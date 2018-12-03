@@ -159,14 +159,8 @@ function forward() {
       moveStarted = false;
       score += (elapsedTime / end);
       var ajax = new XMLHttpRequest();
-      ajax.open("POST", "controller.php?n=check", true);
+      ajax.open("POST", "controller.php?n=newScore&id=0&score=" . score, true);
       ajax.send();
-      ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
-          console.log(ajax.responseText);
-        }
-      }
-      // Place put for leaderboard here
     }
   
     if (left) {

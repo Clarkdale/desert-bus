@@ -30,6 +30,11 @@
     return $val;
   }
 
+  function insertScore($ident, $score) {
+    $theDBA = new DatabaseAdaptor();
+    $theDBA->addScore($ident, $score);
+  }
+
   $n = $_GET["n"];
   session_start();
   if ($n === "leaderboard") {
@@ -61,5 +66,9 @@
       $_SESSION['user'] = $user;
       $_SESSION['id'] = $id;
     } 
+  } else if ($n === 'newScore') {
+    $user = $_GET['id'];
+    $score = $_GET['score'];
+    insertScore($user, $score);
   }
 ?>

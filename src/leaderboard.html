@@ -26,6 +26,7 @@
           if (ajax.readyState == 4 && ajax.status == 200) {
             document.getElementById("scores").innerHTML = "";
             rec = JSON.parse(ajax.responseText);
+            console.log(rec);
             for (let i = 0; i < rec.length; i++) {
               document.getElementById("scores").innerHTML += rec[i][0] + ": " + rec[i][1];
               document.getElementById("scores").innerHTML += "<br>";

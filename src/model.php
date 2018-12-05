@@ -15,9 +15,11 @@ class DatabaseAdaptor {
     }
   }
 
-  public function getScores($id) {
-    $stmt = $this->DB->prepare("SELECT Score FROM scores ORDER BY Score DESC LIMIT :id");
-    $stmt->bindParam(':id', $id);
+  public function getScores($num) {
+    $stmt = $this->DB->prepare("SELECT scores.ID, scores.score FROM scores INNER
+      JOIN scores ON scores.ID=logins.ID ORDER BY score DESC
+      LIMIT :num");
+    $stmt->bindParam(':num', $num);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }

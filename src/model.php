@@ -19,7 +19,7 @@ class DatabaseAdaptor {
     $stmt = $this->DB->prepare("SELECT scores.ID, scores.score FROM scores INNER
       JOIN scores ON scores.ID=logins.ID ORDER BY score DESC
       LIMIT :num");
-    $stmt->bindParam(':num', $num);
+    $stmt->bindParam(':num', $num, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }

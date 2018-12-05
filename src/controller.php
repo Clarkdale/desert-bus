@@ -5,7 +5,7 @@
     $num = htmlspecialchars($num);
     $theDBA = new DatabaseAdaptor();
     $output = array();
-    $allScores = $theDBA->getScores();
+    $allScores = $theDBA->getScores($num);
     $curr;
     $user = $theDBA->getUserName($allScores[0]["ID"])[0];
 

@@ -25,10 +25,11 @@
         ajax.onreadystatechange = function() {
           if (ajax.readyState == 4 && ajax.status == 200) {
             document.getElementById("scores").innerHTML = "";
+            console.log(ajax.responseText);
             rec = JSON.parse(ajax.responseText);
             console.log(rec);
-            for (let i = 0; i < rec.length; i++) {
-              document.getElementById("scores").innerHTML += rec[i][0] + ": " + rec[i][1];
+            for (let i = 0; i < 5 && i < rec.length; i++) {
+              document.getElementById("scores").innerHTML += rec[i]['Username'] + ": " + rec[i]['Score'];
               document.getElementById("scores").innerHTML += "<br>";
             }
           }

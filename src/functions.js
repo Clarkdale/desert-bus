@@ -2,8 +2,8 @@ var spriteY = 0;
 var currX = 110;
 var down = true;
 
-//var end = 28800000;
-var end = 100;
+var end = 28800000;
+//var end = 100;
 var score = 0;
 
 var left = false;
@@ -163,7 +163,7 @@ function forward() {
       ajax.send();
       ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200 && !saved) {
-          var response = ajax.response;
+          var response = JSON.parse(ajax.responseText);
           var id = response[0]['ID'];
           ajax.open("POST", "controller.php?n=newScore&id=" + id + "&score=" + score);
           ajax.send();
@@ -182,7 +182,7 @@ function forward() {
       ajax.send();
       ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200 && !saved) {
-          var response = ajax.response;
+          var response = JSON.parse(ajax.responseText);
           var id = response[0]['ID'];
           ajax.open("POST", "controller.php?n=newScore&id=" + id + "&score=" + score);
           ajax.send();

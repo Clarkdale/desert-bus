@@ -32,7 +32,8 @@
     $ident = htmlspecialchars($ident);
     $score = htmlspecialchars($score);
     $theDBA = new DatabaseAdaptor();
-    $theDBA->addScore($ident, $score);
+    $val = $theDBA->addScore($ident, $score);
+    return $val;
   }
 
   function userInfo($user) {
@@ -76,7 +77,6 @@
     $user = $_GET['id'];
     $score = $_GET['score'];
     insertScore($user, $score);
-    echo "success";
   } else if ($n === 'getUserInfo') {
     $user = $_GET['user'];
     $output = userInfo($user);

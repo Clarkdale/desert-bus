@@ -18,15 +18,14 @@ class DatabaseAdaptor {
   public function getScores($num) {      
     $stmt = $this->DB->prepare("SELECT * FROM scores JOIN logins ON scores.ID=logins.ID
                                  ORDER BY scores.score DESC");
-    $stmt->bindParam(':num', $num, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function addScore($user, $score) {
-    $stmt = $this->DB->prepare("INSERT INTO scores (Username, Score) VALUES(:user, :score)");
-    $stmt->bindParam(':user', $user);
-    $stmt->bindParam(':score', $score);
+    $stmt = $this->DB->prepare("INSERT INTO scores (ID, Score) VALUES(:user, :score)");
+    $stmt->bindParam(':user', $user, PDO::PARAM_INT);
+    $stmt->bindParam(':score', $score, PDO::PARAM_INT);
     $stmt->execute();
   }
 

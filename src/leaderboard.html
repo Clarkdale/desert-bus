@@ -28,7 +28,7 @@
             console.log(ajax.responseText);
             rec = JSON.parse(ajax.responseText);
             console.log(rec);
-            for (let i = 0; i < 5 && i < rec.length; i++) {
+            for (let i = 0; i < 20 && i < rec.length; i++) {
               document.getElementById("scores").innerHTML += rec[i]['Username'] + ": " + rec[i]['Score'];
               document.getElementById("scores").innerHTML += "<br>";
             }

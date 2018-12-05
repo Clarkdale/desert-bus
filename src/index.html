@@ -7,7 +7,7 @@
   <body>
     <img src="../images/logo.png" alt="logo " class="logo">
     <form onsubmit="login(); return false;">
-      <input type="text" id="email" placeholder="Email" required>
+      <input type="text" id="username" placeholder="Username" required>
       <input type="password" id="password" placeholder="Password" required>
       <input type="submit" value="Login">
     </form>
@@ -16,7 +16,7 @@
     <script>
       function login() {
         var ajax = new XMLHttpRequest();
-        var user = document.getElementById("email").value;
+        var user = document.getElementById("username").value;
         var pass = document.getElementById("password").value;
         var url = "controller.php?n=login&user=" + user + "&pass=" + pass;
         ajax.open("GET", url, true);
@@ -24,8 +24,8 @@
         ajax.onreadystatechange = function() {
           if (ajax.readyState == 4 && ajax.status == 200) {
             console.log(ajax.responseText);
-            var response = JSON.parse(ajax.responseText);
-            if (response.length == 1) {
+            var response = ajax.responseText;
+            if (response) {
               window.location.href = "leaderboard.html";
             } else {
               var message = document.getElementById("message");

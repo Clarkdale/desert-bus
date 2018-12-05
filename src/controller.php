@@ -5,11 +5,11 @@
     $num = htmlspecialchars($num);
     $theDBA = new DatabaseAdaptor();
     $output = array();
-    $allScores = $theDBA->getScores();
+    $allScores = $theDBA->getScores($num);
     $curr;
     $user = $theDBA->getUserName($allScores[0]["ID"])[0];
 
-    for ($i = 0; $i < $num && $i < count($allScores); $i++) {
+    for ($i = 0; $i < count($allScores); $i++) {
       $curr = array();
       array_push($curr, $theDBA->getUserName($allScores[0]["ID"])[0]["Username"]);
       array_push($curr, $allScores[$i]["Score"]);
@@ -23,7 +23,7 @@
     $pass = htmlspecialchars($pass);
     $theDBA = new DatabaseAdaptor();
     $check = $theDBA->loginValid($user, $pass);
-    echo json_encode($check);
+    echo $check;
     return $check;
   }
 
@@ -33,6 +33,7 @@
     $email = htmlspecialchars($email);
     $theDBA = new DatabaseAdaptor();
     $val = $theDBA->createUser($user, $email, $pass);
+    echo $val;
     return $val;
   }
 

@@ -158,7 +158,7 @@ function forward() {
     endScreen();
     if (!saved) {
       var ajax = new XMLHttpRequest();
-      
+
       ajax.open("GET", "controller.php?n=getUserInfo&user=" + username, true);
       ajax.send();
       ajax.onreadystatechange = function() {
@@ -177,7 +177,7 @@ function forward() {
       score += (elapsedTime / end);
       score = Math.floor(score);
       var ajax = new XMLHttpRequest();
-      
+
       ajax.open("GET", "controller.php?n=getUserInfo&user=" + username, true);
       ajax.send();
       ajax.onreadystatechange = function() {
@@ -190,13 +190,13 @@ function forward() {
         }
       }
     }
-  
+
     if (left) {
       if (currX < 225) {
         currX += 4;
       }
     }
-  
+
     draw();
   }
 }

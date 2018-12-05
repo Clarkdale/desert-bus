@@ -15,8 +15,9 @@ class DatabaseAdaptor {
     }
   }
 
-  public function getScores() {
-    $stmt = $this->DB->prepare("SELECT * FROM scores");
+  public function getScores($id) {
+    $stmt = $this->DB->prepare("SELECT Score FROM scores ORDER BY Score DESC LIMIT :id");
+    $stmt->bindParam(':id', $id);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -42,9 +43,9 @@ class DatabaseAdaptor {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function loginValid($email, $password) {
-    $stmt = $this->DB->prepare("SELECT Password FROM logins WHERE Email = :email");
-    $stmt->bindParam(':email', $email);
+  public function loginValid($username, $password) {
+    $stmt = $this->DB->prepare("SELECT Password FROM logins WHERE Username = :username");
+    $stmt->bindParam(':username', $username);
     $stmt->execute();
     return password_verify($password, $stmt->fetchAll(PDO::FETCH_ASSOC)[0]['Password']);
   }
@@ -55,13 +56,13 @@ class DatabaseAdaptor {
     $stmt->bindParam(':user', $username);
     $stmt->execute();
     if (count($stmt->fetchAll(PDO::FETCH_ASSOC)) == 1) {
-      return -1;
+      return 'Username taken';
     }
     $stmt = $this->DB->prepare("SELECT Email FROM logins WHERE Email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     if (count($stmt->fetchAll(PDO::FETCH_ASSOC)) == 1) {
-      return -1;
+      return 'Email already in use';
     }
     $all = $this->DB->prepare("SELECT * FROM logins");
     $all->execute();

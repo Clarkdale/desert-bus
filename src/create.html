@@ -28,10 +28,16 @@
           ajax.send();
           ajax.onreadystatechange = function() {
             if (ajax.readyState == 4 && ajax.status == 200) {
-              console.log(ajax.responseText);
+              if (ajax.responseText == "Username taken"
+                  || ajax.responseText == "Email already in use") {
+                var message = document.getElementById("message");
+                message.innerText = "";
+                message.innerText = ajax.responseText;
+              } else {
+                window.location.href = "canvas.html";
+              }
             }
           }
-          window.location.href = "canvas.html";
         } else {
           var message = document.getElementById("message");
           message.innerText = "";

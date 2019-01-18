@@ -1,7 +1,7 @@
 function login() {
     var ajax = new XMLHttpRequest();
     var user = document.getElementById("username").value;
-    var url = "controller.php?n=login&user=" + user;
+    var url = "php/controller.php?n=login&user=" + user;
     ajax.open("GET", url, true);
     ajax.send();
     window.location.href = "leaderboard.html";
@@ -15,7 +15,7 @@ function login() {
     var ajax = new XMLHttpRequest();
     var elem = document.getElementById("scores");
     var rec;
-    ajax.open("GET", "controller.php?n=leaderboard", true);
+    ajax.open("GET", "php/controller.php?n=leaderboard", true);
     ajax.send();
     ajax.onreadystatechange = function() {
       if (ajax.readyState == 4 && ajax.status == 200) {

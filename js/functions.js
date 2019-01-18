@@ -32,7 +32,7 @@ image.src = 'images/spriteSheet.png';
 
 function render() {
   var ajax = new XMLHttpRequest();
-  ajax.open("GET", "controller.php?n=getUser", true);
+  ajax.open("GET", "php/controller.php?n=getUser", true);
   ajax.send();
   ajax.onreadystatechange = function() {
     if (ajax.readyState == 4 && ajax.status == 200) {
@@ -158,7 +158,7 @@ function forward() {
     endScreen();
     if (!saved) {
       var ajax = new XMLHttpRequest();
-      ajax.open("POST", "controller.php?n=newScore&score=" + score, true);
+      ajax.open("POST", "php/controller.php?n=newScore&score=" + score, true);
       ajax.send();
       saved = true;
     }
@@ -168,7 +168,7 @@ function forward() {
       score += (elapsedTime / end);
       score = Math.floor(score);
       var ajax = new XMLHttpRequest();
-      ajax.open("POST", "controller.php?n=newScore&score=" + score, true);
+      ajax.open("POST", "php/controller.php?n=newScore&score=" + score, true);
       ajax.send();
       saved = true;
     }

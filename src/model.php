@@ -3,7 +3,7 @@ class DatabaseAdaptor {
   private $DB;
 
   public function __construct() {
-    $dataBase = 'mysql:dbname=desert_bus; charset=utf8; host=127.0.0.1';
+    $dataBase = 'mysql:dbname=scores; charset=utf8; host=127.0.0.1';
     $user = 'root';
     $password = '';
     try {
@@ -15,69 +15,17 @@ class DatabaseAdaptor {
     }
   }
 
-  public function getScores($num) {      
-    $stmt = $this->DB->prepare("SELECT * FROM scores JOIN logins ON scores.ID=logins.ID
-                                 ORDER BY scores.score DESC");
+  public function getScores() {
+    $stmt = $this->DB->prepare("SELECT * FROM highScores ORDER BY highScores.Score DESC");
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function addScore($user, $score) {
-    $stmt = $this->DB->prepare("INSERT INTO scores (ID, Score) VALUES(:user, :score)");
+    $stmt = $this->DB->prepare("INSERT INTO highScores VALUES(:user, :score)");
     $stmt->bindParam(':user', $user, PDO::PARAM_INT);
     $stmt->bindParam(':score', $score, PDO::PARAM_INT);
     $stmt->execute();
-  }
-
-  public function getUserName($username) {
-    $stmt = $this->DB->prepare("SELECT * FROM logins WHERE ID = :username");
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  public function getUserEntry($user) {
-    $stmt = $this->DB->prepare("SELECT * FROM logins WHERE Username = :user");
-    $stmt->bindParam(':user', $user);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  public function loginValid($username, $password) {
-    $stmt = $this->DB->prepare("SELECT Password FROM logins WHERE Username = :username");
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
-    return password_verify($password, $stmt->fetchAll(PDO::FETCH_ASSOC)[0]['Password']);
-  }
-
-  public function createUser($username, $email, $password) {
-    $hashed = password_hash($password, PASSWORD_DEFAULT);
-    $stmt = $this->DB->prepare("SELECT Username FROM logins WHERE Username = :user");
-    $stmt->bindParam(':user', $username);
-    $stmt->execute();
-    if (count($stmt->fetchAll(PDO::FETCH_ASSOC)) == 1) {
-      return 'Username taken';
-    }
-    $stmt = $this->DB->prepare("SELECT Email FROM logins WHERE Email = :email");
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    if (count($stmt->fetchAll(PDO::FETCH_ASSOC)) == 1) {
-      return 'Email already in use';
-    }
-    $all = $this->DB->prepare("SELECT * FROM logins");
-    $all->execute();
-    $array = $all->fetchAll(PDO::FETCH_ASSOC);
-    $index = count($array) + 1;
-    $stmt = $this->DB->prepare("INSERT INTO logins (ID, Username, Email,
-      Password) VALUES (:index, :username, :email, :password)"
-    );
-    $stmt->bindParam(':index', $index);
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':password', $hashed);
-
-    $stmt->execute();
-    return $index;
   }
 }
 ?>

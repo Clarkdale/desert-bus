@@ -48,7 +48,7 @@ function render() {
         };
         document.body.appendChild(press);
       } else {
-        username = JSON.parse(username)[0];
+        username = ajax.responseText;
         makeGame();
       }
     }
@@ -158,18 +158,9 @@ function forward() {
     endScreen();
     if (!saved) {
       var ajax = new XMLHttpRequest();
-
-      ajax.open("GET", "controller.php?n=getUserInfo&user=" + username, true);
+      ajax.open("POST", "controller.php?n=newScore&score=" + score, true);
       ajax.send();
-      ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200 && !saved) {
-          var response = JSON.parse(ajax.responseText);
-          var id = response[0]['ID'];
-          ajax.open("POST", "controller.php?n=newScore&id=" + id + "&score=" + score);
-          ajax.send();
-          saved = true;
-        }
-      }
+      saved = true;
     }
   } else {
     if (damage >= 40 && !saved) {
@@ -177,18 +168,9 @@ function forward() {
       score += (elapsedTime / end);
       score = Math.floor(score);
       var ajax = new XMLHttpRequest();
-
-      ajax.open("GET", "controller.php?n=getUserInfo&user=" + username, true);
+      ajax.open("POST", "controller.php?n=newScore&score=" + score, true);
       ajax.send();
-      ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200 && !saved) {
-          var response = JSON.parse(ajax.responseText);
-          var id = response[0]['ID'];
-          ajax.open("POST", "controller.php?n=newScore&id=" + id + "&score=" + score);
-          ajax.send();
-          saved = true;
-        }
-      }
+      saved = true;
     }
 
     if (left) {

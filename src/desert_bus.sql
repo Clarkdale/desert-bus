@@ -1,6 +1,6 @@
 -- MySQL dump 10.16  Distrib 10.1.25-MariaDB, for Win32 (AMD64)
 --
--- Host: localhost    Database: desert_bus
+-- Host: localhost    Database: scores
 -- ------------------------------------------------------
 -- Server version	10.1.25-MariaDB
 
@@ -16,59 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `desert_bus`
+-- Current Database: `scores`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `desert_bus` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `scores` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `desert_bus`;
+USE `scores`;
 
 --
--- Table structure for table `logins`
+-- Table structure for table `highscores`
 --
 
-DROP TABLE IF EXISTS `logins`;
+DROP TABLE IF EXISTS `highscores`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `logins` (
-  `ID` int(11) DEFAULT NULL,
-  `Username` varchar(255) DEFAULT NULL,
-  `Email` varchar(255) DEFAULT NULL,
-  `Password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `logins`
---
-
-LOCK TABLES `logins` WRITE;
-/*!40000 ALTER TABLE `logins` DISABLE KEYS */;
-INSERT INTO `logins` VALUES (1,'Clarkdale','clarkdale@email.arizona.edu','test');
-/*!40000 ALTER TABLE `logins` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `scores`
---
-
-DROP TABLE IF EXISTS `scores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `scores` (
-  `ID` int(11) DEFAULT NULL,
+CREATE TABLE `highscores` (
+  `User` varchar(255) DEFAULT NULL,
   `Score` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `scores`
+-- Dumping data for table `highscores`
 --
 
-LOCK TABLES `scores` WRITE;
-/*!40000 ALTER TABLE `scores` DISABLE KEYS */;
-INSERT INTO `scores` VALUES (1,1);
-/*!40000 ALTER TABLE `scores` ENABLE KEYS */;
+LOCK TABLES `highscores` WRITE;
+/*!40000 ALTER TABLE `highscores` DISABLE KEYS */;
+INSERT INTO `highscores` VALUES ('Clark',1);
+/*!40000 ALTER TABLE `highscores` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -80,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-21 17:38:10
+-- Dump completed on 2019-01-18  9:09:59

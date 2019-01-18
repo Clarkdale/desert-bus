@@ -8,37 +8,9 @@
     <img src="../images/logo.png" alt="logo " class="logo">
     <form onsubmit="login(); return false;">
       <input type="text" id="username" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
       <input type="submit" value="Login">
     </form>
-    <button onclick="create()">Create an Account</button>
     <div id="message" class="error"></div>
-    <script>
-      function login() {
-        var ajax = new XMLHttpRequest();
-        var user = document.getElementById("username").value;
-        var pass = document.getElementById("password").value;
-        var url = "controller.php?n=login&user=" + user + "&pass=" + pass;
-        ajax.open("GET", url, true);
-        ajax.send();
-        ajax.onreadystatechange = function() {
-          if (ajax.readyState == 4 && ajax.status == 200) {
-            console.log(ajax.responseText);
-            var response = ajax.responseText;
-            if (response) {
-              window.location.href = "leaderboard.html";
-            } else {
-              var message = document.getElementById("message");
-              message.innerText = "";
-              message.innerText = "Username or password invalid";
-            }
-          }
-        }
-      }
-
-      function create() {
-        window.location.href = "create.html";
-      }
-    </script>
+    <script src="data.js"></script>
   </body>
 </html>

@@ -1,2 +1,2 @@
-# cs337-final
-Final project for 337
+# Desert Bus
+http://clarkpenado.com/desert-bus/canvas.html

@@ -28,7 +28,7 @@ let moving = null;
 let username;
 
 let image = new Image();
-image.src = '../images/spriteSheet.png';
+image.src = 'images/spriteSheet.png';
 
 function render() {
   var ajax = new XMLHttpRequest();
